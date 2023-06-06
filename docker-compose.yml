@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  stellantis:
+    image: postgres
+    container_name: stellantis
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=bosch
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=stellantis
+    volumes:
+      - pgdata:/data/postgres
+volumes:
+  pgdata:
+    driver: local
