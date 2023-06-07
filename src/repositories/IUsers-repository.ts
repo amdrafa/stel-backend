@@ -2,7 +2,7 @@ import { User } from "../models/user-model"
 
 export interface IRegisterUserDTO {
     name: string;
-    age: number;
+    password: string;
     email: string;
 }
 
