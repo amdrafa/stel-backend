@@ -1,0 +1,53 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Stellantis Report | Documentation",
+        "description": "This is an API developed for bosch in order to export the amount of hours each colaborator worked for stellantis.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "moa2jvl@bosch.com"
+        }
+    },
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create a new user",
+                "description": "The route is going to create a new user, which is different than a colaborator.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object", 
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Rodrigo Stinghen",
+                                    "email": "rodrigo.stinghen@br.bosch.com",
+                                    "password": "123123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created: User created successfully."
+                    },
+                    "409": {
+                        "description": "Conflict: User already exists."
+                    }
+                }
+            }
+        }
+    }
+}

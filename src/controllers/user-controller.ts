@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { User } from "../models/user-model";
 import { z } from "zod";
-import { makeRegisterUserService } from "../factories/make-register-user-service";
+import { makeRegisterUserService } from "../factories/user/make-register-user-service";
 import { UserAlreadyExistsError } from "../services/errors/user-already-exists-error";
-import { makeLoginService } from "../factories/make-login-service";
+import { makeLoginService } from "../factories/user/make-login-service";
 import { UserPasswordIncorrectError } from "../services/errors/user-password-incorrect-error";
 import jwt from "jsonwebtoken";
 
@@ -25,7 +25,7 @@ export class UserController {
                 password,
                 email
             })
-            return response.status(200).json({ message: "User created." })
+            return response.status(201).json({ message: "User created." })
         } catch (error) {
             if (error instanceof UserAlreadyExistsError) {
                 return response.status(409).json({ message: "E-mail already registered." })
@@ -61,7 +61,6 @@ export class UserController {
             .json({ message: 'Successfully logged in.' });
         } catch (error) {
             if (error instanceof UserPasswordIncorrectError) {
-
                 return response.status(409).json({ message: "E-mail or password incorrect." })
             }
             throw error

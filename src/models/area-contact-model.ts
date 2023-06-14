@@ -1,9 +1,10 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRoleEnum } from "../enums/user-roles-enum";
 import { UserStatusEnum } from "../enums/user-status-enum";
+import { Area } from "./area-model";
 
 @Entity()
-export class User {
+export class AreaContact {
     @PrimaryGeneratedColumn()
     id: number | undefined;
 
@@ -17,24 +18,8 @@ export class User {
     })
     email?: string;
 
-    @Column({
-        type: "text"
-    })
-    password?: string;
-
-    @Column({
-        type: "enum",
-        enum: UserRoleEnum,
-        default: UserRoleEnum.user
-    })
-    role?: UserRoleEnum;
-
-    @Column({
-        type: "enum",
-        enum: UserStatusEnum,
-        default: UserStatusEnum.enabled
-    })
-    status?: UserStatusEnum;
+    @ManyToOne(() => Area, (area) => area.contacts)
+    area?: Area
 
     @CreateDateColumn({ name: 'created_at'})
     createdAt?: Date;

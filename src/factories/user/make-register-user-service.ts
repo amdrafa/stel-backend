@@ -1,5 +1,5 @@
-import { TypeOrmUsersRepository } from "../repositories/typeorm/typeorm-users-repository"
-import { RegisterUserService } from "../services/user/register-user-service"
+import { TypeOrmUsersRepository } from "../../repositories/typeorm/typeorm-users-repository"
+import { RegisterUserService } from "../../services/user/register-user-service"
 
 
 export function makeRegisterUserService() {

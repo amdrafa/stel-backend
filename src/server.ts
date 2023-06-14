@@ -1,9 +1,11 @@
-import { env } from "./env";
-import { AppDataSource } from "./data-source";
-import express from "express";
+import { env } from "./env"
+import { AppDataSource } from "./data-source"
+import express from "express"
 import "reflect-metadata"
-import { router } from "./routes";
-import bodyParser from "body-parser";
+import { router } from "./routes"
+import bodyParser from "body-parser"
+import swaggerUi from "swagger-ui-express"
+import swaggerFile from "./swagger.json"
 
 
 AppDataSource.initialize()
@@ -19,7 +21,9 @@ AppDataSource.initialize()
 
         const app = express()
 
-        app.use(bodyParser.json());
+        app.use(bodyParser.json())
+
+        app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
         app.use(router)
 
