@@ -5,18 +5,14 @@ import { AreaNotFoundError } from "../errors/area-not-found"
 export class UpdateAreaService {
     constructor(private areaRepository: IAreaRepository) { }
 
-    async execute(areaProps: Area) {
+    async execute(areaProps: IUpdateAreaDTO) {
 
-        const area = await this.areaRepository.findById(areaProps?.id)
+        const area = await this.areaRepository.findById(areaProps.id!)
 
         if(!area){
             throw new AreaNotFoundError()
         }
 
-        console.log(areaProps)
-        
-        const updatedArea = await this.areaRepository.update(areaProps)
-
-        return null
+        return await this.areaRepository.update(areaProps)
     }
 }

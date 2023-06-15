@@ -1,4 +1,4 @@
-import { UpdateResult } from "typeorm";
+import { DeleteResult, UpdateResult } from "typeorm";
 import { Area } from "../models/area-model";
 
 export interface IRegisterContactAreaDTO {
@@ -8,6 +8,7 @@ export interface IRegisterContactAreaDTO {
 }
 
 export interface IRegisterAreaDTO {
+    id?: number;
     name: string;
     description: string;
     contacts: IRegisterContactAreaDTO[]
@@ -17,7 +18,6 @@ export interface IUpdateAreaDTO {
     id: number;
     name: string;
     description: string;
-    contacts?: IRegisterContactAreaDTO[]
 }
 
 export interface IAreaRepository {
@@ -26,4 +26,7 @@ export interface IAreaRepository {
     list(): Promise<Area[] | null>
     findById(id: number): Promise<Area | null>
     findByName(name: string): Promise<Area | null>
+    delete(id: number): Promise<DeleteResult>;
+
+    createTeste(area: Area): Promise<Area>
 }

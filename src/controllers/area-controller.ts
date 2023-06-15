@@ -6,6 +6,7 @@ import { AreaAlreadyExistsError } from "../services/errors/area-already-exists-e
 import { makeListAreaService } from "../factories/area/make-list-areas-service";
 import { makeUpdateAreaService } from "../factories/area/make-update-area-service";
 import { AreaNotFoundError } from "../services/errors/area-not-found";
+import { makeDeleteAreaService } from "../factories/area/make-delete-area-service";
 
 export class AreaController {
 
@@ -44,20 +45,20 @@ export class AreaController {
 
     async update(request: Request, response: Response) {
 
-        const ContactAreaBodySchema = z.object({
-            id: z.number(),
-            name: z.string(),
-            email: z.string(),
-        })      
+        // const ContactAreaBodySchema = z.object({
+        //     id: z.number(),
+        //     name: z.string(),
+        //     email: z.string(),
+        // })      
 
         const registerAreaBodySchema = z.object({
             id: z.number(),
             name: z.string(),
             description: z.string(),
-            contacts: z.array(ContactAreaBodySchema),
+            //contacts: z.array(ContactAreaBodySchema),
         })
 
-        const { id, name, description, contacts  } = registerAreaBodySchema.parse(request.body)
+        const { id, name, description  } = registerAreaBodySchema.parse(request.body)
 
         try {
             const updateAreaService = makeUpdateAreaService()
@@ -65,7 +66,7 @@ export class AreaController {
                 id,
                 name,
                 description,
-                contacts
+                //contacts
             })
 
             return response.status(200).json({ area })
@@ -90,4 +91,40 @@ export class AreaController {
         }
     }
     
+    async delete(request: Request, response: Response) {
+
+        try {
+            const deleteAreasService = makeDeleteAreaService()
+            const area = await deleteAreasService.execute(Number(request.params.id))
+            return response.status(200).json({area})
+        } catch (error) {
+            if (error instanceof AreaNotFoundError) {
+                return response.status(404).json({ message: "Area not found." })
+            }
+            throw error
+        }
+    }
+
+    async createTeste(request: Request, response: Response) {
+
+        //const { name, description, contacts  } = registerAreaBodySchema.parse(request.body)
+
+        console.log(request.body);
+        console.log(request.body.name);
+
+        try {
+            // const createAreaService = makeCreateAreaService()
+            // const area = await createAreaService.execute2(request.body)
+
+            // return response.status(201).json({ area })
+
+            return response.status(201).json("2")
+
+        } catch (error) {
+            if (error instanceof AreaAlreadyExistsError) {
+                return response.status(409).json({ message: "Area already registered." })
+            }
+            throw error
+        }
+    }
 }
