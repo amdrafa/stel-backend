@@ -6,6 +6,10 @@ import { UserAlreadyExistsError } from "../services/errors/user-already-exists-e
 import { makeLoginService } from "../factories/user/make-login-service";
 import { UserPasswordIncorrectError } from "../services/errors/user-password-incorrect-error";
 import jwt from "jsonwebtoken";
+import { makeDeleteUserService } from "../factories/user/make-delete-user-service";
+import { UserNotFoundError } from "../services/errors/user-not-found-error";
+import { makeUpdateUserService } from "../factories/user/make-update-user-service";
+import { makeListUserService } from "../factories/user/make-list-user-service";
 
 export class UserController {
 
@@ -67,4 +71,61 @@ export class UserController {
         }   
     }
 
+    async list(request: Request, response: Response) {
+        try {
+            const service = makeListUserService()
+            const users = await service.execute()
+            return response.status(200).json({ users })
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async update(request: Request, response: Response) {
+        const updateBodySchema = z.object({
+            id: z.number(),
+            name: z.string(),
+            email: z.string(),
+            password: z.string(),
+            //status
+        })
+
+        const { id, name, email, password  } = updateBodySchema.parse(request.body)
+
+        try {
+            const service = makeUpdateUserService()
+            await service.execute({
+                id,
+                name,
+                email,
+                password
+            })
+            return response.status(201).json({ message: "User updated." })
+        } catch (error) {
+            if (error instanceof UserNotFoundError) {
+                return response.status(404).json({ message: "E-mail not fount." })
+            }
+            throw error
+        }
+    }
+
+    async delete(request: Request, response: Response) {
+        // const deleteBodySchema = z.object({
+        //     id: z.number(),
+        // })
+
+        // const { id } = deleteBodySchema.parse(request.body)
+
+        try {
+            const service = makeDeleteUserService()
+            await service.execute(Number(request.params.id))
+
+            return response.status(200).json({ message: "User Deleted." })
+        } catch (error) {
+            if (error instanceof UserNotFoundError) {
+                return response.status(404).json({ message: "E-mail not fount." })
+            }
+            throw error
+        }
+    }
 }

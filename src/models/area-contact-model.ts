@@ -6,7 +6,7 @@ import { Area } from "./area-model";
 @Entity()
 export class AreaContact {
     @PrimaryGeneratedColumn()
-    id: number | undefined;
+    id?: number;
 
     @Column({
         type: "text"
@@ -18,7 +18,7 @@ export class AreaContact {
     })
     email?: string;
 
-    @ManyToOne(() => Area, (area) => area.contacts)
+    @ManyToOne(() => Area, (area) => area.contacts, { onDelete:'CASCADE' })
     area?: Area
 
     @CreateDateColumn({ name: 'created_at'})

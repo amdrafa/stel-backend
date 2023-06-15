@@ -16,4 +16,15 @@ export class CreateAreaService {
 
         return this.areaRepository.create(areaProps)
     }
+
+    async execute2(area: Area): Promise<Area> {
+
+        const newArea = await this.areaRepository.findByName(area.name!)
+
+        if(newArea){
+            throw new AreaAlreadyExistsError()
+        }
+
+        return this.areaRepository.createTeste(area)
+    }
 }

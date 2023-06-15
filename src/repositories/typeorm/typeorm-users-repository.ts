@@ -1,6 +1,6 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { User } from "../../models/user-model";
-import { IRegisterUserDTO, IUsersRepository } from "../IUsers-repository"
+import { IRegisterUserDTO, IUpdateUserDTO, IUsersRepository } from "../IUsers-repository"
 import { AppDataSource } from "../../data-source";
 
 export class TypeOrmUsersRepository implements IUsersRepository {
@@ -10,6 +10,12 @@ export class TypeOrmUsersRepository implements IUsersRepository {
     constructor() {
         this.repository = AppDataSource.getRepository(User)
     }
+
+    
+    async findUserById(id: number) {
+        return await this.repository.findOneBy({ id: id })
+    }
+
     async findUserByEmail(email: string) {
         const user = await this.repository.findOneBy({
             email: email
@@ -25,7 +31,14 @@ export class TypeOrmUsersRepository implements IUsersRepository {
 
 
     async list(): Promise<User[]> {
-        const allUsers = this.repository.find()
-        return allUsers
+        return this.repository.find()
+    }
+
+    async update(user: IUpdateUserDTO) {
+        return await this.repository.update(user.id, user);
+    }
+
+    async delete(id: number): Promise<UpdateResult> {
+        return await this.repository.softDelete(id);
     }
 }

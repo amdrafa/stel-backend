@@ -5,7 +5,7 @@ import { UserStatusEnum } from "../enums/user-status-enum";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number | undefined;
+    id?: number;
 
     @Column({
         type: "text"
