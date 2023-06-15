@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { User } from "./models/user-model"
 import { Area } from "./models/area-model"
 import { AreaContact } from "./models/area-contact-model"
+import { Employee } from "./models/employee-model"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: "stellantis",
     synchronize: true,
     logging: true,
-    entities: [User, Area, AreaContact],
+    entities: [User, Area, AreaContact, Employee],
     subscribers: [],
     migrations: [],
 })
