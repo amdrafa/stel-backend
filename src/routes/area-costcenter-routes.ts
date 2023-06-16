@@ -3,7 +3,7 @@ import { AreaCostCenterController } from "../controllers/area-costcenter-control
 
 export const areaCostCenterRoutes = Router();
 
-areaCostCenterRoutes.get("/:id", new AreaCostCenterController().findById)
+areaCostCenterRoutes.get("/findBy/:id", new AreaCostCenterController().findById)
 
 areaCostCenterRoutes.post("/create", new AreaCostCenterController().create)
 

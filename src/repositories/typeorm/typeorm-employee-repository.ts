@@ -21,12 +21,16 @@ export class TypeOrmEmployeeRepository implements IEmployeeRepository {
         return await this.repository.update(employee.id, employee)
     }
     
-    async list(): Promise<Employee[] | null> {
-        return await this.repository.find()
+    async list(): Promise<Employee[]> {
+        //return await this.repository.find({ select: { id: true } })
+        
+        console.log("passou por aqui")
+
+        return await this.repository.find({ take: 10 })
     }
 
     async findById(id: number): Promise<Employee | null> {
-        return await this.repository.findOneBy({id: id}) 
+        return await this.repository.findOneBy({id: id})
     }
 
     async findByEDV(edv: number): Promise<Employee | null> {

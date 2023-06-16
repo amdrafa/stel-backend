@@ -3,6 +3,7 @@ import { ListEmployeeService } from "../../services/employee/list-employee-servi
 
 
 export function makeListEmployeeService() {
+    
     const repository = new TypeOrmEmployeeRepository()
     return new ListEmployeeService(repository)
 }

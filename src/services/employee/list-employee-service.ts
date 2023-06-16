@@ -8,6 +8,10 @@ export class ListEmployeeService {
 
     async execute(): Promise<Employee[] | null> {
 
+
+        console.log("passou por aqui")
+
         return await this.repository.list()
+        
     }
 }

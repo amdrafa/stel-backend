@@ -85,9 +85,11 @@ export class EmployeeController {
             const service = makeListEmployeeService()
             const employees = await service.execute()
 
+            
+
             return response.status(200).json({ employees })
         } catch (error) {
-            throw new Error()
+            throw error
         }
     }
 

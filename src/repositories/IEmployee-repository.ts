@@ -28,7 +28,7 @@ export interface IUpdateEmployeeDTO {
 export interface IEmployeeRepository {
     create(employee: IRegisterEmployeeDTO): Promise<Employee>
     update(employee: IUpdateEmployeeDTO): Promise<Employee | UpdateResult>
-    list(): Promise<Employee[] | null>
+    list(): Promise<Employee[]>
     findById(id: number): Promise<Employee | null>
     findByEDV(edv: number): Promise<Employee | null>
     delete(id: number): Promise<DeleteResult>;

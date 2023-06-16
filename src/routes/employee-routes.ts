@@ -3,7 +3,7 @@ import { EmployeeController } from "../controllers/employee-controller";
 
 export const employeeRoutes = Router();
 
-employeeRoutes.get("/:id", new EmployeeController().findById)
+employeeRoutes.get("/findBy/:id", new EmployeeController().findById)
 
 employeeRoutes.post("/create", new EmployeeController().create)
 
