@@ -3,7 +3,7 @@ import { AreaContactController } from "../controllers/area-contact-controller";
 
 export const areaContactRoutes = Router();
 
-areaContactRoutes.get("/:id", new AreaContactController().findById)
+areaContactRoutes.get("/findBy/:id", new AreaContactController().findById)
 
 areaContactRoutes.post("/create", new AreaContactController().create)
 

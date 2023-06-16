@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AreaContact } from "./area-contact-model";
+import { AreaCostCenter } from "./area-costcenter-model";
 
 @Entity()
 export class Area {
@@ -21,6 +22,12 @@ export class Area {
         // eager: true
     })
     contacts?: Promise<AreaContact[]>
+
+    @OneToMany(() => AreaCostCenter, (costCenter) => costCenter.area, {
+        cascade: true,
+        // eager: true
+    })
+    costCenters?: Promise<AreaCostCenter[]>
 
     @CreateDateColumn({ name: 'created_at'})
     createdAt?: Date;

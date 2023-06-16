@@ -2,27 +2,30 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryG
 import { EmployeeStatusEnum } from "../enums/employee-status"
 
 @Entity()
-export class Empoyee {
+export class Employee {
     @PrimaryGeneratedColumn()
     id?: number;
 
-    @Column()
-    EDV!: number;
+    @Column({type: "int"})
+    edv?: number;
 
     @Column({type: "text"})
-    Position?: string;
+    name?: string;
 
-    @Column({type: "date"})
-    SAPStartDate?: Date;
+    @Column({type: "text"})
+    position?: string;
 
-	@Column({type: "date"})
-	CustomStartDate?: Date;
+    @Column({type: "date", nullable: true})
+    sapStartDate?: Date;
 
-    @Column({type: "date"})
-	SAPEndDate?: Date;
+	@Column({type: "date", nullable: true})
+	customStartDate?: Date;
 
-    @Column({type: "date"})
-	CustomEndDate?: Date;
+    @Column({type: "date", nullable: true})
+	sapEndDate?: Date;
+
+    @Column({type: "date", nullable: true})
+	customEndDate?: Date;
 
     @Column({
         type: "enum",
