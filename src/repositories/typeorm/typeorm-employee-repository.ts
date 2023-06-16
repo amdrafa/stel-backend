@@ -21,7 +21,7 @@ export class TypeOrmEmployeeRepository implements IEmployeeRepository {
         return await this.repository.update(employee.id, employee)
     }
     
-    async list(): Promise<Employee[]> {
+    async list(): Promise<Employee[] | null> {
         return await this.repository.find()
     }
 

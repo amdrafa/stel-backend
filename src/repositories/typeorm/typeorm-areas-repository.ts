@@ -21,7 +21,7 @@ export class TypeOrmAreasRepository implements IAreaRepository {
     
     async list(){
         const areas = await this.repository.find({
-            relations: ["contacts"]
+            relations: ["contacts", "costCenters"]
         })
         return areas
     }

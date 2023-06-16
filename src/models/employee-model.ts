@@ -4,16 +4,16 @@ import { EmployeeStatusEnum } from "../enums/employee-status"
 @Entity()
 export class Employee {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id?: number;
 
     @Column({type: "int"})
-    edv!: number;
+    edv?: number;
 
     @Column({type: "text"})
-    name!: string;
+    name?: string;
 
     @Column({type: "text"})
-    position!: string;
+    position?: string;
 
     @Column({type: "date", nullable: true})
     sapStartDate?: Date;
